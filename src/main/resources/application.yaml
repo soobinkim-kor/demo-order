@@ -1,3 +1,58 @@
 spring:
   application:
     name: demo
+  web:
+    resources:
+      static-locations: classpath:/static/, classpath:/static/bootstrap/
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/db01
+    username: root
+    password: 1234
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+    show-sql: true
+  security:
+    user:
+      name: user
+      password: 1234
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  kafka:
+    bootstrap-servers: localhost:9092
+    properties:
+      spring.json.trusted.packages: "*"
+    listener:
+      log-container-config: false
+  elasticsearch:
+    uris: http://localhost:9200
+    username: elastic
+    password: changeme
+logging:
+  level:
+    root: info
+    com.example.demo: debug
+    org.hibernate.SQL: debug
+    org.hibernate.orm.jdbc.bind: trace
+    org.apache.kafka: warn
+    org.springframework.kafka: warn
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus, health, info
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    tags:
+      application: demo
+jwt:
+  secret: "0123456789abcdef0123456789abcdef"
+grpc:
+  server:
+    reflection-service-enabled: true
+    port: 9191
